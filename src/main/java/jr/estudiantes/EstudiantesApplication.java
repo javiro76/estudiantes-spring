@@ -45,7 +45,6 @@ public class EstudiantesApplication implements CommandLineRunner {
 
 
     private void showMenu() {
-        logger.info(nl);
         logger.info("""
                 *** Menú Aplicación Estudiantes ***
                 1. Listar Estudiantes
@@ -127,22 +126,24 @@ public class EstudiantesApplication implements CommandLineRunner {
 
 
             }
-//            case 5 -> {
-//                System.out.println("Introduce el id del estudiante a eliminar: ");
-//                int idEstudiante = Integer.parseInt(consola.nextLine());
-//                var estudianteEliminar = new Estudiante(idEstudiante);
-//                var eliminado = estudianteDAO.eliminarEstudiante(estudianteEliminar);
-//                if (eliminado) {
-//                    System.out.println("Estudiante eliminado: " + estudianteEliminar);
-//                } else {
-//                    System.out.println("No se eliminó estudiante: " + estudianteEliminar);
-//                }
-//            }
-//            case 6 -> {
-//                System.out.println("Hasta pronto!");
-//                salir = true;
-//            }
-//            default -> System.out.println("Opción no recnocida: " + opcion);
+            case 5 -> { //Eliminar estudiante
+                logger.info("Eliminar Estudiante: " + nl);
+                logger.info("Introduce el id del estudiante a eliminar: ");
+                int idEstudiante = Integer.parseInt(consola.nextLine());
+                //buscar estudiante a eliminar
+                Estudiante estudiante = estudianteServicio.buscarEstudiantePorId(idEstudiante);
+                if(estudiante != null ) {
+                    estudianteServicio.eliminarEstudiante(estudiante);
+                    logger.info("Estudiante eliminado: " + estudiante + nl );
+                } else {
+                    logger.info("Estudiante no encontrado con id: " + idEstudiante + nl );
+                }
+            }
+            case 6 -> {
+                logger.info("Hasta pronto!" + nl + nl );
+                salir = true;
+            }
+            default -> System.out.println("Opción no recnocida: " + opcion);
         }//fin switch
         return salir;
     }//fin de executeOptions
